@@ -8,7 +8,7 @@ export default function Login() {
     <div className='login'>
         <form className='login-form'>
             <h1 className='login-title'>Login</h1>
-            <h2 className='login-subtitle' >Welcome Back!</h2>
+            <h2 className='login-subtitle'>Welcome Back!</h2>
             <div>
                 <label className='login-label'>Email Address</label>
                 <input type='email' className='login-input' placeholder='e.g. example@domain.com' required/>

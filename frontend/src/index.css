@@ -1,3 +1,7 @@
+:root {
+  --greenish: hsl(98, 65%, 55%);
+}
+
 *, *::before, *::after  {
   margin: 0;
   padding: 0;

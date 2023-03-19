@@ -1,5 +1,5 @@
 .login {
-    width: 540px;
+    max-width: 540px;
     padding: 20px;
     margin: 50px auto 0;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -43,7 +43,7 @@
 
 .login-input:focus {
     outline: none;
-    border: 1px solid #997ddd;
+    border: 1px solid var(--greenish);
 }
 
 .password-box  { position: relative; }
@@ -68,7 +68,7 @@
     width: 100%;
     border-radius: 8px;
     padding: 10px;
-    background: #8359E3;
+    background: var(--greenish);
     color: white;
 }
 
@@ -80,3 +80,45 @@
 }
 
 .login footer small span { font-weight: 700; }
+
+@media screen and (max-width: 375px) {
+    .login {
+        margin-top: 25px;
+        padding: 18px;
+    }
+
+    .login-title {
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+    }
+
+    .login-subtitle {
+        font-size: 1.8rem;
+        margin-bottom: 25px;
+    }
+
+    .login-label { font-size: 12px; }
+
+    .login-input {
+        padding: 9px;
+        font-size: 12px;
+    }
+
+    .login-input::placeholder { font-size: 12px; }
+
+    .uil-eye, .uil-eye-slash { font-size: 14px; }
+
+    .login-form div:last-child { margin-bottom: 8px; }
+
+    .login-form p {
+        font-size: 12px;
+        margin-bottom: 22px;
+    }
+
+    .login-btn {
+        padding: 9px;
+        font-size: 12px;
+    }
+
+    .login-form > div { margin-bottom: 15px; }
+}
