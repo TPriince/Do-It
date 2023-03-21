@@ -43,7 +43,7 @@
 
 .login-input:focus {
     outline: none;
-    border: 1px solid var(--greenish);
+    border: 1px solid var(--greenish-2);
 }
 
 .password-box  { position: relative; }
@@ -68,11 +68,11 @@
     width: 100%;
     border-radius: 8px;
     padding: 10px;
-    background: var(--greenish);
+    background: var(--greenish-1);
     color: white;
 }
 
-.login-btn:hover { background: #997ddd; }
+.login-btn:hover { background: var(--greenish-2); }
 
 .login footer {
     margin-top: 40px;

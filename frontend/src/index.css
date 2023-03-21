@@ -1,5 +1,6 @@
 :root {
-  --greenish: hsl(98, 65%, 55%);
+  --greenish-1: hsl(98, 65%, 55%);
+  --greenish-2: hsl(98, 40%, 58%);
 }
 
 *, *::before, *::after  {
@@ -11,7 +12,7 @@
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Arvo', serif;
 }
   
 a {
