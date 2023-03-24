@@ -110,7 +110,9 @@ const getListById = async (req, res, next) => {
         const id = req.params.id;
         const user = req.user;
 
-        const list = await listModel.findOne({ _id: id, userId: user.id });
+        const list = await listModel
+            .findOne({ _id: id, userId: user.id })
+            .populate("cards", "-__v");
         return res.status(200).json({
             success: true,
             message: "list found",
@@ -129,6 +131,7 @@ const getAllLists = async (req, res, next) => {
         const user = req.user;
         const lists = await listModel
             .find({ userId: user.id })
+            .populate("cards", "-__v")
             .sort({ position: 1 });
         return res.status(200).json({
             success: true,
@@ -137,7 +140,7 @@ const getAllLists = async (req, res, next) => {
         });
     } catch (error) {
         return res.status(400).json({
-            message: "An error occured",
+            message: error.message,
             success: false,
         });
     }

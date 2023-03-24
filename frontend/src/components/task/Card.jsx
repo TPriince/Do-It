@@ -1,12 +1,38 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './card.css'
 
-export default function Card({ content, setCards, cardId, listId, color='' }) {
+export default function Card({ content, setCards, cardId, listId, color='', setLists }) {
     const [text, setText] = useState(content);
+    const [refresh, setRefresh] = useState(false)
     const [showTrash, setShowTrash] = useState(false);
+    const backendUrl = 'http://localhost:3000';
     function handleShowTrash() {
         setShowTrash(!showTrash)
     }
+
+    useEffect(() => {
+        if (refresh === true) {
+            fetch(`${backendUrl}/api/v1/list/`, {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+                }
+              })
+                .then(res => {
+                  if (res.status === 200) {
+                    return res.json()
+                  } else {
+                    throw new Error('Error getting lists')
+                  }
+                })
+                .then(data => {
+                  console.log(data)
+                  setLists(data.list)
+                })
+                .catch(err => console.log(err))
+        }
+    }, [refresh])
 
     function handleContentChange(event) {
         setText(event.target.value);
@@ -22,11 +48,38 @@ export default function Card({ content, setCards, cardId, listId, color='' }) {
     }
 
     function handleDelete(id) {
-        setCards((prev) =>{
-            return prev.filter((item) => item.id !== id)})
+        console.log(id)
+        if (id.slice(0, 8) === 'frontend') {
+            setCards((prev) => prev.filter((item) => item._id !== id))
+            alert('Card deleted');
+            return
+        }
+        fetch(`${backendUrl}/api/v1/card/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+            },
+        })
+        .then(res => {
+            if (res.status === 200) {
+                console.log('Card deleted')
+                alert('Card deleted');
+                return res.json()
+            } else {
+                throw new Error('Error deleting card')
+            }
+        })
+        .then(data => {
+            console.log(data)
+            setCards((prev) => {
+                return prev.filter((item) => item._id !== id)
+            })
+        })
+        .catch(err => console.log(err))
     }
 
-    function handleSave() {
+    function handleSaveCard() {
         fetch(`http://localhost:3000/api/v1/card/`, {
             method: 'POST',
             headers: {
@@ -40,6 +93,7 @@ export default function Card({ content, setCards, cardId, listId, color='' }) {
         })
         .then(res => {
             if (res.status === 200) {
+                setRefresh(true)
                 return res.json()
             } else {
                 throw new Error('Error saving card')
@@ -56,7 +110,7 @@ export default function Card({ content, setCards, cardId, listId, color='' }) {
         <i className={ showTrash ? 'bx bxs-trash show-trash' : 'bx bxs-trash' } onClick={() => handleDelete(cardId)}></i>
         <textarea className='box-textarea' value={text} onChange={handleContentChange} >
         </textarea>
-        <button className='save-btn' onClick={handleSave}>Save</button>
+        <button className='save-btn' onClick={handleSaveCard}>Save</button>
     </div>
   )
 }

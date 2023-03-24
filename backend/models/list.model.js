@@ -9,7 +9,7 @@ const listSchema = new Schema(
             type: String,
             required: true,
         },
-        cards: [{ type: mongoose.Schema.Types.ObjectId, ref: "card" }],
+        cards: [{ type: mongoose.Schema.Types.ObjectId, ref: "Card" }],
         position: Number,
         userId: {
             type: mongoose.Schema.Types.ObjectId,
