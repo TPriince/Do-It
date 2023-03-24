@@ -10,6 +10,7 @@ export default function Signup() {
     confirmPassword: '',
   });
   const [loading, setLoading] = useState(false);
+  const [userexists, setUserExists] = useState(false);
   const backendUrl = 'http://localhost:3000';
   function handleSubmit(event) {
     event.preventDefault();
@@ -45,7 +46,8 @@ export default function Signup() {
     .then((data) => {
       console.log(data);
       if (data.message === 'User with this email already exists') {
-        alert('User already exists');
+        setUserExists(true);
+        setTimeout(() => setUserExists(false), 4000)
         setLoading(false);
       }
     })
@@ -55,17 +57,28 @@ export default function Signup() {
   }
 
   return (
-    <div className='signup'>
+    <section className='signup'>
         <form className='signup-form' onSubmit={handleSubmit}>
             <h1 className='signup-title'>Sign up</h1>
-            <input type='email' value={user.email} onChange={(e) => setUser({...user, email: e.target.value})} className='signup-input' placeholder='Email address' required/>
-            <input type='password' value={user.password} onChange={(e) => setUser({...user, password: e.target.value})} className='signup-input' placeholder='Enter Password' pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}' title='Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters' required/>
-            <input type='password' value={user.confirmPassword} onChange={(e) => setUser({...user, confirmPassword: e.target.value})} className='signup-input' placeholder='Confirm Password' required/>
+            <div className='user-email'>
+              <label htmlFor='email'>Email address</label>
+              <input type='email' value={user.email} onChange={(e) => setUser({...user, email: e.target.value})} className='signup-input' placeholder='e.g. example@domain.com' required/>
+              { userexists && <small className='user-exists'>User already exists</small> }
+            </div>
+
+            <div className='user-password'>
+              <label htmlFor='password'>Password</label>
+              <input type='password' value={user.password} onChange={(e) => setUser({...user, password: e.target.value})} className='signup-input' placeholder='Must have at least 8 characters' pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}' title='Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters' required/>
+            </div>
+            <div className='user-confirm__password'>
+              <label htmlFor='confirm-password'>Confirm Password</label>
+              <input type='password' value={user.confirmPassword} onChange={(e) => setUser({...user, confirmPassword: e.target.value})} className='signup-input' required/>
+            </div>
             <button className='signup-btn'>{ loading ? 'Loading...' : 'Create account' }</button>
         </form>
         <footer>
             <small>Already have an account? <Link to='/login'><span>Log in</span></Link></small>
         </footer>
-    </div>
+    </section>
   )
 }

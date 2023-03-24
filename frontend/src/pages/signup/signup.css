@@ -1,7 +1,7 @@
 .signup {
     max-width: 540px;
-    padding: 20px;
-    margin: 50px auto 0;
+    padding: 28px;
+    margin: 20px auto 0;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     background:  white;
 }
@@ -13,6 +13,14 @@
     margin-bottom: 40px;
 }
 
+.signup-form div { margin-bottom: 20px; }
+
+.user-exists {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
 .signup-input {
     width: 100%;
     border-radius: 8px;
@@ -21,7 +29,7 @@
     padding: 10px;
     margin-top: 5px;
     text-indent: 6px;
-    margin-bottom: 44px;
+    font-size: 0.8rem;
 }
 
 .signup-input::placeholder { font-size: 13px; }

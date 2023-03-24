@@ -5,9 +5,10 @@ import './task.css'
 export default function Task({ title='Add Title', cardsList, listId }) {
     const [cards, setCards] = useState(cardsList)
     const [listTitle, setListTitle] = useState(title)
+    const colors = ['blue', 'green', 'red', 'yellow', 'purple', 'pink', 'orange']
     const backendUrl = 'http://localhost:3000';
     function handleAddCard() {
-        setCards([...cards, { id: crypto.randomUUID(), text: `New task` }])
+        setCards([...cards, { id: crypto.randomUUID(), text: `New task`, color: colors[Math.floor(Math.random() * 4)] }])
     }
 
     useEffect(() => {
@@ -51,7 +52,15 @@ export default function Task({ title='Add Title', cardsList, listId }) {
         <div className="task-content">
             {cards.map((card) => {
                 const id = crypto.randomUUID();
-                return <Card key={card.id} content={card.text} setCards={setCards} cardId={id} listId={listId} />
+                
+                return <Card
+                        key={card.id || id}
+                        content={card.text}
+                        setCards={setCards}
+                        cardId={card.id || id}
+                        listId={listId}
+                        color={card.color}
+                        />
             })}
         </div>
     </div>

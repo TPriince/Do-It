@@ -1,12 +1,12 @@
+import { useState, useEffect } from "react"
 import Task from "../task/Task"
 import './container.css'
-import { useState, useEffect } from "react"
 
 export default function Container() {
   const [lists, setLists] = useState([])
   const backendUrl = 'http://localhost:3000';
   function handleAddList() {
-    setLists([...lists, { _id: crypto.randomUUID(), cards: [{id: 1, text: 'Add new task'}] }])
+    setLists([...lists, { _id: crypto.randomUUID(), cards: [{ id: crypto.randomUUID(), text: 'Add new task' }] }])
   }
 
   useEffect(() => {
@@ -38,7 +38,11 @@ export default function Container() {
         </div>
         <div className="main-content">
           {lists.map(list => {
-            return <Task key={list._id} title={list.title} cardsList={list.cards} />
+            return <Task
+                      key={list._id}
+                      title={list.title}
+                      cardsList={list.cards}
+                    />
           })}
         </div>
     </main>

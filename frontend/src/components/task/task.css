@@ -1,8 +1,7 @@
-.task-container {
-    text-align: center;
-}
+.task-container { text-align: center; }
 
 .task-content {
+    min-width: 270px;
     padding: 20px;
     background: #170722;
     border-radius: 8px;
@@ -35,9 +34,7 @@
     background: rgba(154, 230, 180, 0.16);
 }
 
-.save-task__btn {
-    margin-bottom: 10px;
-}
+.save-task__btn { margin-bottom: 10px; }
 
 .add {
     background: #2D3748;
@@ -64,9 +61,7 @@
 }
 
 @media screen and (max-width: 768px) {
-    .task-container {
-        max-width: 700px;
-    }
+    .task-container { max-width: 700px; }
 
     .task-content {
         overflow-x: auto;
@@ -74,11 +69,10 @@
         display: flex;
         flex-wrap: nowrap;
         gap: 1rem;
+        min-width: 286px;
     }
 }
 
 @media screen and (max-width: 475px) {
-    .task-content {
-        padding: 10px;
-    }
+    .task-content { padding: 10px; }
 }

@@ -5,6 +5,8 @@ import './login.css'
 export default function Login() {
     const navigate = useNavigate();
     const [loggingIn, setLoggingIn] = useState(false);
+    const [userDoesNotExist, setUserDoesNotExist] = useState(false);
+    const [passwordIncorrect, setPasswordIncorrect] = useState(false);
     const [type, setType] = useState(true);
     const [user, setUser] = useState({
         email: '',
@@ -37,10 +39,12 @@ export default function Login() {
         .then((data) => {
             console.log(data);
             if (data.message === 'User does not exist') {
-                alert('User does not exist');
+                setUserDoesNotExist(true);
+                setTimeout(() => setUserDoesNotExist(false), 4000);
                 setLoggingIn(false);
             } else if (data.message === 'Password incorrect') {
-                alert('Password incorrect');
+                setPasswordIncorrect(true);
+                setTimeout(() => setPasswordIncorrect(false), 4000);
                 setLoggingIn(false);
             } else {
                 setLoggingIn(false);
@@ -64,14 +68,16 @@ export default function Login() {
             <h2 className='login-subtitle'>Welcome Back!</h2>
             <div>
                 <label htmlFor='email' className='login-label'>Email Address</label>
-                <input type='email' name='email' value={user.email} onChange={(e) => setUser({...user, email: e.target.value})} className='login-input' placeholder='e.g. example@domain.com' required/>
+                <input type='email' placeholder='Email address' value={user.email} onChange={(e) => setUser({...user, email: e.target.value})} className='login-input' required/>
+                { userDoesNotExist && <small className='user-not-found'>User does not exist</small> }
             </div>
             <div>
-                <label htmlFor='psw' className='login-label'>Password</label>
+                <label htmlFor='password' className='login-label'>Password</label>
                 <div className='password-box'>
-                    <input type={type ? 'password' : 'text'}  name='psw' value={user.password} onChange={(e) => setUser({...user, password: e.target.value})} className='login-input' placeholder='Must have at least 6 characters' required/>
+                    <input type={type ? 'password' : 'text'} placeholder='Enter your password' value={user.password} onChange={(e) => setUser({...user, password: e.target.value})} className='login-input' required/>
                     { type ? <i className="uil uil-eye-slash" onClick={() => setType(!type)}></i> :
                     <i className="uil uil-eye" onClick={() => setType(!type)}></i> }
+                    { passwordIncorrect && <small className='password-incorrect'>Incorrect password</small> }
                 </div>
             </div>
             <p><a href='#'>Forgot password?</a></p>

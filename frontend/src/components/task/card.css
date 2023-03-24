@@ -1,6 +1,6 @@
 .card {
-    max-width: 250px;
-    height: 200px;
+    max-width: 230px;
+    height: 150px;
     padding: 10px;
     border-radius: 0.5rem;
     background: #4FD1C5;
@@ -8,7 +8,25 @@
     margin-bottom: 10px;
     position: relative;
     font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
+
+.blue { background: #4299E1; }
+
+.green { background: #48BB78; }
+
+.red { background: #F56565; }
+
+.yellow { background: #ED8936; }
+
+.purple { background: #805AD5; }
+
+.pink { background: #D53F8C; }
+
+.orange { background: #DD6B20; }
 
 .card .bxs-trash {
     position: absolute;
@@ -19,9 +37,7 @@
     cursor: pointer;
 }
 
-.card .show-trash {
-    opacity: 1;
-}
+.card .show-trash { opacity: 1; }
 
 .card textarea {
     resize: none;
@@ -29,6 +45,7 @@
     border: none;
     background: inherit;
     outline: none;
+    padding: 10px 0px;
 }
 
 .save-btn {
@@ -36,16 +53,17 @@
     color: #A0AEC0;
     padding: 3px 10px;
     border-radius: 0.5rem;
-    margin-top: 50px;
+    margin-top: 25px;
 }
 
 .save-btn:hover { color: white; }
 
 @media screen and (max-width: 768px) {
     .card {
-        max-width: 220px;
-        height: 100px;
+        max-width: 260px;
     }
+    
+    .save-btn { margin-top: 0px;}
 }
 
 @media screen and (min-width: 768px) {
@@ -59,5 +77,6 @@
 @media screen and (max-width: 475px) {
     .card {
         font-size: 0.75rem;
+        max-height: 120px;
     }
 }

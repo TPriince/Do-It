@@ -44,17 +44,11 @@
 }
 
 @media screen and (max-width: 550px) {
-    .header-logo {
-        font-size: 1.2rem;
-    }
+    .header-logo { font-size: 1.2rem; }
 
-    .user-email {
-        font-size: 0.8rem;
-    }
+    .user-email { font-size: 0.8rem; }
 
-    .user-email span {
-        font-size: 1.2rem;
-    }
+    .user-email span { font-size: 1.2rem; }
 }
 
 @media screen and (max-width: 400px) {
@@ -67,11 +61,7 @@
         font-size: 1rem;
     }
 
-    .user-email {
-        font-size: 0.7rem;
-    }
+    .user-email { font-size: 0.7rem; }
 
-    .user-email span {
-        font-size: 1rem;
-    }
+    .user-email span { font-size: 1rem; }
 }
