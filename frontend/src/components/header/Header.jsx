@@ -1,13 +1,23 @@
 import { Link } from 'react-router-dom'
 import './header.css'
 
-export default function Header() {
+export default function Header({ user }) {
+  function handleLogOut() {
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
+  }
   return (
-    <Link to='/'>
-      <nav className='header'>
-        <i className='bx bx-check-double'></i>
-        <h1 className='header-title'>Do-It</h1>
-      </nav>
-    </Link>
+    <nav className='header'>
+      <Link to='/'>
+        <div className='header-logo'>
+          <i className='bx bx-check-double'></i>
+          <h1 className='header-title'>Do-It</h1>
+        </div>
+      </Link>
+      <div className='user-details'>
+        <Link to='/login'><i className='bx bxs-log-out' onClick={handleLogOut}></i></Link>
+        <h1 className='user-email'>Welcome <span>{user}</span></h1>
+      </div>
+    </nav>
   )
 }

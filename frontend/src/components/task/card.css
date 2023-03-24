@@ -1,4 +1,4 @@
-.box {
+.card {
     max-width: 250px;
     height: 200px;
     padding: 10px;
@@ -7,9 +7,10 @@
     box-shadow: rgba(11, 16, 21, 0.2) 0px 8px 24px;
     margin-bottom: 10px;
     position: relative;
+    font-size: 1rem;
 }
 
-.bxs-trash {
+.card .bxs-trash {
     position: absolute;
     top: 4px;
     right: 6px;
@@ -18,11 +19,11 @@
     cursor: pointer;
 }
 
-.show-trash {
+.card .show-trash {
     opacity: 1;
 }
 
-.box textarea {
+.card textarea {
     resize: none;
     font-weight: bold;
     border: none;
@@ -30,17 +31,33 @@
     outline: none;
 }
 
+.save-btn {
+    background: #2D3748;
+    color: #A0AEC0;
+    padding: 3px 10px;
+    border-radius: 0.5rem;
+    margin-top: 50px;
+}
+
+.save-btn:hover { color: white; }
+
 @media screen and (max-width: 768px) {
-    .box {
+    .card {
         max-width: 220px;
         height: 100px;
     }
 }
 
 @media screen and (min-width: 768px) {
-    .bxs-trash {
+    .card .bxs-trash {
         top: 6px;
         right: 8px;
         font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 475px) {
+    .card {
+        font-size: 0.75rem;
     }
 }

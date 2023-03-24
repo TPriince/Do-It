@@ -36,11 +36,18 @@ export default function Signup() {
           navigate('/login');
         }, 800)
         return res.json();
+      } else if (res.status === 401) {
+          return res.json();
       }
+      setLoading(false);
       throw new Error('Something went wrong');
     })
     .then((data) => {
       console.log(data);
+      if (data.message === 'User with this email already exists') {
+        alert('User already exists');
+        setLoading(false);
+      }
     })
     .catch((err) => {
       console.log(err);

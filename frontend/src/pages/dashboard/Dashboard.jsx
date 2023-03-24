@@ -1,10 +1,22 @@
 import Header from "../../components/header/Header"
 import Container from "../../components/container/Container"
+import Login from "../login/Login"
+import { useState, useEffect } from "react"
 
 export default function Dashboard() {
+  const [userToken, setUserToken] = useState(null)
+  const [user, setUser] = useState('')
+  useEffect(()  => {
+    const token = sessionStorage.getItem('token')
+    const currentUser = sessionStorage.getItem('user')
+    setUser(JSON.parse(currentUser))
+    setUserToken(JSON.parse(token))
+  }, [userToken])
+
+  if (!userToken) return <Login />
   return (
     <div className="dashboard">
-        <Header />
+        <Header user={user} />
         <Container />
     </div>
   )

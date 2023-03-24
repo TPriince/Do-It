@@ -1,6 +1,4 @@
 .task-container {
-    max-width: 300px;
-    width: 300px;
     text-align: center;
 }
 
@@ -19,21 +17,26 @@
     border-radius: 0.5rem;
     padding: 0 0.5rem;
     font-weight: 700;
+    position: relative;
 }
 
-.to-do {
-    color: #E2E8F0;
-    background: rgba(226, 232, 240, 0.16)
+.task-title .bxs-trash {
+    position: absolute;
+    top: 2px;
+    right: -20px;
+    font-size: 1.2rem;
+    cursor: pointer;
 }
 
-.in-progress {
-    color: #90cdf4;
-    background: rgba(144, 205, 244, 0.16);
-}
-
-.completed {
+.task-title .input {
+    outline: none;
+    border: none;
     color: #9AE6B4;
     background: rgba(154, 230, 180, 0.16);
+}
+
+.save-task__btn {
+    margin-bottom: 10px;
 }
 
 .add {
@@ -46,15 +49,36 @@
     font-weight: semibold;
 }
 
+@media screen and (max-width: 875px) {
+    .task-content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        height: 60vh;
+    }
+
+    .add {
+        width: 60%;
+        margin: 20px auto;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .task-container {
-        max-width: 100%;
-        overflow-x: auto;
+        max-width: 700px;
     }
 
     .task-content {
-        height: 60vh;
+        overflow-x: auto;
+        height: 30vh;
         display: flex;
+        flex-wrap: nowrap;
         gap: 1rem;
+    }
+}
+
+@media screen and (max-width: 475px) {
+    .task-content {
+        padding: 10px;
     }
 }
