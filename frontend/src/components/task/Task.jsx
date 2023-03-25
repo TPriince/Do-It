@@ -1,90 +1,38 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Card from "./Card"
 import './task.css'
 
 export default function Task({ title='', cardsList, listId, setLists }) {
     const [cards, setCards] = useState(cardsList)
-    const [refresh, setRefresh] = useState(false)
     const [listTitle, setListTitle] = useState(title)
     const colors = ['blue', 'green', 'red', 'yellow', 'purple', 'pink', 'orange']
     const backendUrl = 'http://localhost:3000';
     function handleAddCard() {
         setCards([...cards, { _id: `frontend${crypto.randomUUID()}`, text: `New task`, color: colors[Math.floor(Math.random() * 4)] }])
     }
-
-    useEffect(() => {
-        if (refresh === true) {
-            fetch(`${backendUrl}/api/v1/list/`, {
-                method: 'GET',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`
-                }
-              })
-                .then(res => {
-                  if (res.status === 200) {
-                    setRefresh(false)
-                    return res.json()
-                  } else {
-                    throw new Error('Error getting lists')
-                  }
-                })
-                .then(data => {
-                  console.log(data)
-                  setLists(data.list)
-                })
-                .catch(err => console.log(err))
-        }
-    }, [refresh])
-
     
-    function handleSaveTask(e, id) {
+    function handleUpdateTitle(e, id) {
         if (e.key === 'Enter') {
-            const idPrefix = id.slice(0, 8)
-            if (idPrefix === 'frontend') {
-                fetch(`${backendUrl}/api/v1/list/`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`
-                    },
-                    body: JSON.stringify({
-                        title: listTitle,
-                    })
+            fetch(`${backendUrl}/api/v1/list/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+                },
+                body: JSON.stringify({
+                    title: listTitle,
                 })
-                .then(res => {
-                    if (res.status === 200) {
-                        setRefresh(true)
-                        alert('Saved')
-                        return res.json()
-                    } else {
-                        throw new Error('Error saving list')
-                    }
-                })
-                .then(data => console.log(data))
-                .catch(err => console.log(err))
-            } else {
-                fetch(`${backendUrl}/api/v1/list/${id}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`
-                    },
-                    body: JSON.stringify({
-                        title: listTitle,
-                    })
-                })
-                .then(res => {
-                    if (res.status === 200) {
-                        alert('Title updated')
-                        return res.json()
-                    } else {
-                        throw new Error('Error editing list')
-                    }
-                })
-                .then(data => console.log(data))
-                .catch(err => console.log(err))
-            }
+            })
+            .then(res => {
+                if (res.status === 200) {
+                    alert('Title updated')
+                    return res.json()
+                } else {
+                    throw new Error('Error editing list')
+                }
+            })
+            .then(data => console.log(data))
+            .catch(err => console.log(err))
         }
     }
     
@@ -123,7 +71,7 @@ export default function Task({ title='', cardsList, listId, setLists }) {
                 placeholder='Add Title'
                 value={listTitle}
                 onChange={(e) => setListTitle(e.target.value)}
-                onKeyUp={(e) => handleSaveTask(e, listId)}
+                onKeyUp={(e) => handleUpdateTitle(e, listId)}
             />
             <i className='bx bxs-trash' onClick={() => handleDelete(listId)}></i>
         </div>

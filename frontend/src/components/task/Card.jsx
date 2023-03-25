@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './card.css'
 
-export default function Card({ content, setCards, cardId, listId, color='', setLists, title }) {
+export default function Card({ content, setCards, cardId, listId, color='', title }) {
     const [text, setText] = useState(content);
     const [refresh, setRefresh] = useState(false)
     const [showTrash, setShowTrash] = useState(false);
@@ -83,8 +83,7 @@ export default function Card({ content, setCards, cardId, listId, color='', setL
     }
 
     function handleSaveCard(cardId, listId) {
-        console.log(cardId, listId)
-        if (title === '') {
+        if (title === '' || title === undefined) {
             alert('Please enter a title for the list');
             return
         }
@@ -106,6 +105,7 @@ export default function Card({ content, setCards, cardId, listId, color='', setL
                     alert('Card saved');
                     return res.json()
                 } else {
+                    alert('Check if you have entered a title for the list')
                     throw new Error('Error saving card')
                 }
             })

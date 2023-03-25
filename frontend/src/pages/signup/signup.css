@@ -13,6 +13,11 @@
     margin-bottom: 40px;
 }
 
+.signup-form div label {
+    /* font-size: 0.9rem; */
+    font-weight: 700;
+}
+
 .signup-form div { margin-bottom: 20px; }
 
 .user-exists {
