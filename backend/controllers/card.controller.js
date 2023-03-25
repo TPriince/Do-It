@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const cardModel = require("../models/card.model");
 const listModel = require("../models/list.model");
 
@@ -28,9 +29,22 @@ const createCard = async (req, res, next) => {
 const deleteCard = async (req, res, next) => {
     try {
         const id = req.params.id;
+        const { listId } = req.body;
         const user = req.user;
 
-        await cardModel.findOneAndDelete({ _id: id });
+        let card = await cardModel.findOneAndDelete({ _id: id });
+        let list = listModel.findById({ _id: listId });
+        list.then(async (data) => {
+            const index = data.cards.findIndex((curr) => {
+                return curr.valueOf() === id;
+            });
+            let newId = new ObjectId(id);
+            if (index !== -1) {
+                await listModel.findByIdAndUpdate(listId, {
+                    $pull: { cards: newId },
+                });
+            }
+        });
         return res.status(200).json({
             success: true,
             message: "card deleted",
@@ -43,4 +57,22 @@ const deleteCard = async (req, res, next) => {
     }
 };
 
-module.exports = { createCard, deleteCard };
+const updateCard = async (req, res, next) => {
+    try {
+        const { text } = req.body;
+        const id = req.params.id;
+        const user = req.user;
+        let myCard = await cardModel.findOneAndUpdate(id, { text: text });
+
+        return res.status(200).json({
+            success: true,
+            message: "card updated",
+        });
+    } catch (error) {
+        return res.status(400).json({
+            message: error.message,
+            success: false,
+        });
+    }
+};
+module.exports = { createCard, deleteCard, updateCard };

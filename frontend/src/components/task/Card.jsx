@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './card.css'
 
-export default function Card({ content, setCards, cardId, listId, color='', setLists }) {
+export default function Card({ content, setCards, cardId, listId, color='', setLists, title }) {
     const [text, setText] = useState(content);
     const [refresh, setRefresh] = useState(false)
     const [showTrash, setShowTrash] = useState(false);
@@ -21,6 +21,7 @@ export default function Card({ content, setCards, cardId, listId, color='', setL
               })
                 .then(res => {
                   if (res.status === 200) {
+                    setRefresh(false)
                     return res.json()
                   } else {
                     throw new Error('Error getting lists')
@@ -28,7 +29,7 @@ export default function Card({ content, setCards, cardId, listId, color='', setL
                 })
                 .then(data => {
                   console.log(data)
-                  setLists(data.list)
+                  setCards(data.list.filter((item) => item._id === listId)[0].cards)
                 })
                 .catch(err => console.log(err))
         }
@@ -60,10 +61,12 @@ export default function Card({ content, setCards, cardId, listId, color='', setL
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`
             },
+            body: JSON.stringify({
+                listId,
+            })
         })
         .then(res => {
             if (res.status === 200) {
-                console.log('Card deleted')
                 alert('Card deleted');
                 return res.json()
             } else {
@@ -79,30 +82,59 @@ export default function Card({ content, setCards, cardId, listId, color='', setL
         .catch(err => console.log(err))
     }
 
-    function handleSaveCard() {
-        fetch(`http://localhost:3000/api/v1/card/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`
-            },
-            body: JSON.stringify({
-                text,
-                listId
+    function handleSaveCard(cardId, listId) {
+        console.log(cardId, listId)
+        if (title === '') {
+            alert('Please enter a title for the list');
+            return
+        }
+        if (cardId.slice(0, 8) === 'frontend') {
+            fetch(`${backendUrl}/api/v1/card/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+                },
+                body: JSON.stringify({
+                    listId,
+                    text,
+                })
             })
-        })
-        .then(res => {
-            if (res.status === 200) {
-                setRefresh(true)
-                return res.json()
-            } else {
-                throw new Error('Error saving card')
-            }
-        })
-        .then(data => {
-            console.log(data)
-        })
-        .catch(err => console.log(err))
+            .then(res => {
+                if (res.status === 200) {
+                    setRefresh(true)
+                    alert('Card saved');
+                    return res.json()
+                } else {
+                    throw new Error('Error saving card')
+                }
+            })
+            .then(data => {
+             console.log(data)
+            })
+            .catch(err => console.log(err))
+        } else {
+            fetch(`${backendUrl}/api/v1/card/${cardId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`
+                },
+                body: JSON.stringify({
+                    text
+                })
+            })
+            .then(res => {
+                if (res.status === 200) {
+                    alert('Card updated');
+                    return res.json()
+                } else {
+                    throw new Error('Error updating card')
+                }
+            })
+            .then(data => console.log(data))
+            .catch(err => console.log(err))
+        }
     }
     
   return (
@@ -110,7 +142,7 @@ export default function Card({ content, setCards, cardId, listId, color='', setL
         <i className={ showTrash ? 'bx bxs-trash show-trash' : 'bx bxs-trash' } onClick={() => handleDelete(cardId)}></i>
         <textarea className='box-textarea' value={text} onChange={handleContentChange} >
         </textarea>
-        <button className='save-btn' onClick={handleSaveCard}>Save</button>
+        <button className='save-btn' onClick={() => handleSaveCard(cardId, listId)}>Save</button>
     </div>
   )
 }

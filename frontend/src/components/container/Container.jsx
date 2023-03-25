@@ -6,7 +6,7 @@ export default function Container() {
   const [lists, setLists] = useState([])
   const backendUrl = 'http://localhost:3000';
   function handleAddList() {
-    setLists([...lists, { _id: `frontend${crypto.randomUUID()}`, cards: [{ _id: crypto.randomUUID(), text: 'Add new task' }] }])
+    setLists([...lists, { _id: `frontend${crypto.randomUUID()}`, cards: [{ _id: `frontend${crypto.randomUUID()}`, text: 'Add new task' }] }])
   }
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function Container() {
             return <Task
                       key={list._id}
                       title={list.title}
-                      cardsList={ list.cards.length > 0 ? list.cards : [{ _id: crypto.randomUUID(), text: 'Add new task' }] }
+                      cardsList={ list.cards.length > 0 ? list.cards : [{ _id: `frontend${crypto.randomUUID()}`, text: 'Add new task' }] }
                       listId={list._id}
                       setLists={setLists}
                     />

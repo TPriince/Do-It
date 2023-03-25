@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Card from "./Card"
 import './task.css'
 
-export default function Task({ title='Add Title', cardsList, listId, setLists }) {
+export default function Task({ title='', cardsList, listId, setLists }) {
     const [cards, setCards] = useState(cardsList)
     const [refresh, setRefresh] = useState(false)
     const [listTitle, setListTitle] = useState(title)
@@ -23,6 +23,7 @@ export default function Task({ title='Add Title', cardsList, listId, setLists })
               })
                 .then(res => {
                   if (res.status === 200) {
+                    setRefresh(false)
                     return res.json()
                   } else {
                     throw new Error('Error getting lists')
@@ -97,7 +98,7 @@ export default function Task({ title='Add Title', cardsList, listId, setLists })
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`
-            }
+            },
         })
         .then(res => {
             if (res.status === 200) {
@@ -109,6 +110,7 @@ export default function Task({ title='Add Title', cardsList, listId, setLists })
             }
         })
         .then(data => console.log(data))
+        .catch(err => console.log(err))
     }
 
 
@@ -117,6 +119,8 @@ export default function Task({ title='Add Title', cardsList, listId, setLists })
         <div className='task-title'>
             <input
                 className='task-title input'
+                type="text"
+                placeholder='Add Title'
                 value={listTitle}
                 onChange={(e) => setListTitle(e.target.value)}
                 onKeyUp={(e) => handleSaveTask(e, listId)}
@@ -136,6 +140,7 @@ export default function Task({ title='Add Title', cardsList, listId, setLists })
                         listId={listId}
                         color={card.color}
                         setLists={setLists}
+                        title={listTitle}
                         />
             })}
         </div>

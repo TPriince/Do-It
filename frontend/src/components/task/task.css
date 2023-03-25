@@ -19,6 +19,7 @@
     position: relative;
 }
 
+
 .task-title .bxs-trash {
     position: absolute;
     top: 2px;
@@ -33,6 +34,8 @@
     color: #9AE6B4;
     background: rgba(154, 230, 180, 0.16);
 }
+
+.task-title .input::placeholder { color: #9AE6B4; }
 
 .add {
     background: #2D3748;
