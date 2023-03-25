@@ -7,13 +7,16 @@ export default function Container() {
   const [refresh, setRefresh] = useState(false)
   const backendUrl = 'http://localhost:3000';
   function handleAddList() {
-    const title = prompt('Enter list title: ')
+    let title = prompt('Enter list title: ')
+    if (title === '' || title === undefined) {
+      title = 'Untitled'
+    }
     setLists([...lists, { _id: `frontend${crypto.randomUUID()}`, title: title, cards: [{ _id: `frontend${crypto.randomUUID()}`, text: 'Add new task' }] }])
     saveTitle(title) // Save list title to database
   }
 
   // Function to save list title to database
-  function saveTitle(title) {
+  function saveTitle(title='') {
     fetch(`${backendUrl}/api/v1/list/`, {
       method: 'POST',
       headers: {

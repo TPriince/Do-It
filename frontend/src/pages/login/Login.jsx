@@ -49,7 +49,7 @@ export default function Login() {
             } else {
                 setLoggingIn(false);
                 sessionStorage.setItem('token', JSON.stringify(data.token));
-                sessionStorage.setItem('user', JSON.stringify(data.user.email));
+                sessionStorage.setItem('user', JSON.stringify(data.user.username));
                 setTimeout(() => {
                     navigate('/dashboard');
                 }, 1000)

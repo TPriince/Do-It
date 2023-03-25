@@ -14,11 +14,13 @@
 }
 
 .signup-form div label {
-    /* font-size: 0.9rem; */
+    font-size: 0.9rem;
     font-weight: 700;
 }
 
-.signup-form div { margin-bottom: 20px; }
+.signup-form div { margin-bottom: 10px; }
+
+.signup-form .user-confirm__password { margin-bottom: 20px; }
 
 .user-exists {
     color: red;

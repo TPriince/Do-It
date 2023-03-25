@@ -5,6 +5,7 @@ import './signup.css'
 export default function Signup() {
   const navigate = useNavigate();
   const [user, setUser] = useState({
+    username: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -25,6 +26,7 @@ export default function Signup() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        username: user.username,
         email: user.email,
         password: user.password,
         
@@ -60,6 +62,11 @@ export default function Signup() {
     <section className='signup'>
         <form className='signup-form' onSubmit={handleSubmit}>
             <h1 className='signup-title'>Sign up</h1>
+            <div className='username'>
+              <label htmlFor='username'>Username</label>
+              <input type='text' value={user.username} onChange={(e) => setUser({...user, username: e.target.value})} className='signup-input' placeholder='Enter username' required/>
+            </div>
+
             <div className='user-email'>
               <label htmlFor='email'>Email address</label>
               <input type='email' value={user.email} onChange={(e) => setUser({...user, email: e.target.value})} className='signup-input' placeholder='e.g. example@domain.com' required/>
