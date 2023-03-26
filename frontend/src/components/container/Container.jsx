@@ -8,7 +8,7 @@ export default function Container() {
   const backendUrl = 'http://localhost:3000';
   function handleAddList() {
     let title = prompt('Enter list title: ')
-    if (title === '' || title === undefined) {
+    if (title === '' || title === undefined || title === null) {
       title = 'Untitled'
     }
     setLists([...lists, { _id: `frontend${crypto.randomUUID()}`, title: title, cards: [{ _id: `frontend${crypto.randomUUID()}`, text: 'Add new task' }] }])
@@ -92,7 +92,7 @@ export default function Container() {
   return (
     <main className="main-container">
         <div className="add-list" onClick={handleAddList}>
-            New Section
+            Add List
         </div>
         <div className="main-content">
           {lists.map(list => {

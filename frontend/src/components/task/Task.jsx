@@ -8,7 +8,7 @@ export default function Task({ title='', cardsList, listId, setLists }) {
     const colors = ['blue', 'green', 'red', 'yellow', 'purple', 'pink', 'orange']
     const backendUrl = 'http://localhost:3000';
     function handleAddCard() {
-        setCards([...cards, { _id: `frontend${crypto.randomUUID()}`, text: `New task`, color: colors[Math.floor(Math.random() * 4)] }])
+        setCards([...cards, { _id: `frontend${crypto.randomUUID()}`, text: `New task`, color: colors[Math.floor(Math.random() * 7)] }])
     }
     
     function handleUpdateTitle(e, id) {
