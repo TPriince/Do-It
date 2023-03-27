@@ -61,7 +61,7 @@ export default function Signup() {
   return (
     <section className='signup'>
         <form className='signup-form' onSubmit={handleSubmit}>
-            <h1 className='signup-title'>Sign up</h1>
+            <h1 className='section-title'>Sign up</h1>
             <div className='username'>
               <label htmlFor='username'>Username</label>
               <input type='text' value={user.username} onChange={(e) => setUser({...user, username: e.target.value})} className='signup-input' placeholder='Enter username' required/>

@@ -15,8 +15,8 @@ export default function Header({ user }) {
         </div>
       </Link>
       <div className='user-details'>
-        <Link to='/login'><i className='bx bxs-log-out' onClick={handleLogOut}></i></Link>
-        <h1 className='user-email'>Welcome <span>{user}</span></h1>
+        <Link to='/login'><i className='bx bxs-log-out' onClick={handleLogOut} title='Log out'></i></Link>
+        <h1 className='user-email'>Welcome {' '} <span>{user}</span></h1>
       </div>
     </nav>
   )

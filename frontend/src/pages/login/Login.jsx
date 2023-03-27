@@ -64,8 +64,8 @@ export default function Login() {
   return (
     <div className='login'>
         <form className='login-form' onSubmit={handleSubmit}>
-            <h1 className='login-title'>Login</h1>
-            <h2 className='login-subtitle'>Welcome Back!</h2>
+            <h1 className='section-title'>Login</h1>
+            <h2 className='section-subtitle'>Welcome Back!</h2>
             <div>
                 <label htmlFor='email' className='login-label'>Email Address</label>
                 <input type='email' placeholder='Email address' value={user.email} onChange={(e) => setUser({...user, email: e.target.value})} className='login-input' required/>
@@ -80,7 +80,7 @@ export default function Login() {
                     { passwordIncorrect && <small className='password-incorrect'>Incorrect password</small> }
                 </div>
             </div>
-            <p><a href='#'>Forgot password?</a></p>
+            <p className='forgot__psw'><a href='/forgot-password'>Forgot password?</a></p>
             <button className='login-btn'>{ loggingIn ? 'Logging in...' : 'Login'}</button>
         </form>
         <footer>
