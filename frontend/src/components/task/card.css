@@ -15,20 +15,6 @@
     align-items: center;
 }
 
-.blue { background: #4299E1; }
-
-.green { background: #48BB78; }
-
-.red { background: #F56565; }
-
-.yellow { background: #ED8936; }
-
-.purple { background: #805AD5; }
-
-.pink { background: #D53F8C; }
-
-.orange { background: #DD6B20; }
-
 .card .bxs-trash {
     position: absolute;
     top: 4px;

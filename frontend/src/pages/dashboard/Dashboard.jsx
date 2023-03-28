@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
+import { Outlet } from "react-router-dom"
 import Header from "../../components/header/Header"
-import Container from "../../components/container/Container"
 import Login from "../login/Login"
 
 export default function Dashboard() {
@@ -17,7 +17,7 @@ export default function Dashboard() {
   return (
     <div className="dashboard">
         <Header user={user} />
-        <Container />
+        <Outlet />
     </div>
   )
 }

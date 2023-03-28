@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import './header.css'
 
 export default function Header({ user }) {
+  const { pathname } = useLocation()
+  
   function handleLogOut() {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('user');
@@ -15,7 +17,8 @@ export default function Header({ user }) {
         </div>
       </Link>
       <div className='user-details'>
-        <Link to='/login'><i className='bx bxs-log-out' onClick={handleLogOut} title='Log out'></i></Link>
+        { pathname === '/dashboard/tasks' ? <Link to='/dashboard/boards'><p>Back to boards</p></Link> : null } 
+        <Link to='/login'><i className='bx bxs-log-out' onClick={handleLogOut} title='Log out'>Logout</i></Link>
         <h1 className='user-email'>Welcome {' '} <span>{user}</span></h1>
       </div>
     </nav>

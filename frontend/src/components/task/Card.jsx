@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react'
+import useDelete from '../../hooks/useDelete';
 import './card.css'
 
-export default function Card({ content, setCards, cardId, listId, color='', title }) {
+export default function Card({ content, setCards, cardId, listId, title }) {
     const [text, setText] = useState(content);
-    const [refresh, setRefresh] = useState(false)
+    const [refresh, setRefresh] = useState(false);
     const [showTrash, setShowTrash] = useState(false);
+    const { handleDelete } = useDelete();
     const backendUrl = 'http://localhost:3000';
+    const cardEndPoint = `${backendUrl}/api/v1/card/`
     function handleShowTrash() {
         setShowTrash(!showTrash)
     }
@@ -46,40 +49,6 @@ export default function Card({ content, setCards, cardId, listId, color='', titl
                 return item
             })
         })
-    }
-
-    function handleDelete(id) {
-        console.log(id)
-        if (id.slice(0, 8) === 'frontend') {
-            setCards((prev) => prev.filter((item) => item._id !== id))
-            alert('Card deleted');
-            return
-        }
-        fetch(`${backendUrl}/api/v1/card/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('token'))}`
-            },
-            body: JSON.stringify({
-                listId,
-            })
-        })
-        .then(res => {
-            if (res.status === 200) {
-                alert('Card deleted');
-                return res.json()
-            } else {
-                throw new Error('Error deleting card')
-            }
-        })
-        .then(data => {
-            console.log(data)
-            setCards((prev) => {
-                return prev.filter((item) => item._id !== id)
-            })
-        })
-        .catch(err => console.log(err))
     }
 
     function handleSaveCard(cardId, listId) {
@@ -138,8 +107,8 @@ export default function Card({ content, setCards, cardId, listId, color='', titl
     }
     
   return (
-    <div className={`card ${color}`} onMouseEnter={handleShowTrash} onMouseLeave={handleShowTrash} >
-        <i className={ showTrash ? 'bx bxs-trash show-trash' : 'bx bxs-trash' } onClick={() => handleDelete(cardId)}></i>
+    <div className='card' onMouseEnter={handleShowTrash} onMouseLeave={handleShowTrash} >
+        <i className={ showTrash ? 'bx bxs-trash show-trash' : 'bx bxs-trash' } onClick={() => handleDelete(cardEndPoint, cardId, setCards)}></i>
         <textarea className='box-textarea' value={text} onChange={handleContentChange} >
         </textarea>
         <button className='save-btn' onClick={() => handleSaveCard(cardId, listId)}>Save</button>

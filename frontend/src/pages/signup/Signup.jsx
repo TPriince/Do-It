@@ -77,6 +77,7 @@ export default function Signup() {
               <label htmlFor='password'>Password</label>
               <input type='password' value={user.password} onChange={(e) => setUser({...user, password: e.target.value})} className='signup-input' placeholder='Must have at least 8 characters' pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}' title='Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters' required/>
             </div>
+            
             <div className='user-confirm__password'>
               <label htmlFor='confirm-password'>Confirm Password</label>
               <input type='password' value={user.confirmPassword} onChange={(e) => setUser({...user, confirmPassword: e.target.value})} className='signup-input' required/>

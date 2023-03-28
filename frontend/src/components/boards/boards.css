@@ -1,0 +1,82 @@
+.boards .section-title { margin-bottom: 5px; }
+
+.add-board {
+    background: #2D3748;
+    border-radius: 6px;
+    color: #A0AEC0;
+    font-size: 1rem;
+    font-weight: semibold;
+    text-align: center;
+    width: 35%;
+    margin: 0px auto 8px;
+    box-shadow: rgb(1, 12, 22) 0px 8px 24px;
+    cursor: pointer;
+}
+
+.add-board:hover {
+    background: #4A5568;
+    color: black;
+}
+
+.view-boards {
+    display: flex;
+    gap: 15px;
+    padding: 10px;
+}
+
+.view-boards p {
+    background: #2D3748;
+    color: #A0AEC0;
+    padding: 4px;
+    cursor: pointer;
+}
+
+.view-boards p:hover {
+    background: #4A5568;
+    color: black;
+}
+
+.all-boards {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 10px;
+}
+
+.task-board {
+    position: relative;
+    background: rgb(54, 81, 14);
+    border-radius: 5px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+    width: 200px;
+    height: 140px;
+    border-radius: 10px;
+}
+
+.task-board:hover {
+    background: rgb(68, 100, 19);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+.board-title {
+    margin-top: 20px;
+    padding-left: 10px;
+    font-size: 1rem;
+    width: 140px;
+    border: none;
+    background-color: #4A5568;
+}
+
+.board-title:focus { outline: none; }
+
+.bx-star {
+    position: absolute;
+    color: black;
+    top: 4px;
+    right: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.favorite { color: #f1c40f; }
