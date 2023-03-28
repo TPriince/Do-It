@@ -13,8 +13,9 @@ export default function Login() {
         password: '',
     });
     const backendUrl = 'http://localhost:3000';
-    function handleSubmit(event) {
-        event.preventDefault();
+
+    function handleSubmit(e) {
+        e.preventDefault();
         setLoggingIn(true);
         fetch(`${backendUrl}/api/v1/auth/login`, {
             method: 'POST',
@@ -48,16 +49,18 @@ export default function Login() {
                 setLoggingIn(false);
             } else {
                 setLoggingIn(false);
+                alert('Login successful');
                 sessionStorage.setItem('token', JSON.stringify(data.token));
                 sessionStorage.setItem('user', JSON.stringify(data.user.username));
                 setTimeout(() => {
                     navigate('/dashboard');
-                }, 1000)
+                }, 500)
             }
         })
         .catch((err) => {
             console.log(err);
         })
+        e.target.reset();
     }
 
 

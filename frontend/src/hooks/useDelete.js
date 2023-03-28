@@ -1,7 +1,7 @@
 export default function useDelete() {
     function handleDelete(url, id, setData) {
         if (id.slice(0, 8) === 'frontend') {
-            setData(prev => prev.filter(list => list._id !== id))
+            setData(prev => prev.filter(data => data._id !== id))
             if (url.slice(-5) === 'list/') {
                 alert('List deleted')
             } else {
@@ -23,7 +23,7 @@ export default function useDelete() {
                 } else {
                     alert('Card deleted')
                 }
-                setData(prev => prev.filter(list => list._id !== id))
+                setData(prev => prev.filter(data => data._id !== id))
                 return res.json()
             } else {
                 throw new Error('Error deleting')

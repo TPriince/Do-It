@@ -13,8 +13,9 @@ export default function Signup() {
   const [loading, setLoading] = useState(false);
   const [userexists, setUserExists] = useState(false);
   const backendUrl = 'http://localhost:3000';
-  function handleSubmit(event) {
-    event.preventDefault();
+
+  function handleSubmit(e) {
+    e.preventDefault();
     if (user.password !== user.confirmPassword) {
       alert('Passwords do not match')
       return
@@ -29,15 +30,15 @@ export default function Signup() {
         username: user.username,
         email: user.email,
         password: user.password,
-        
       }),
     })
     .then((res) => {
       if (res.status === 200) {
         setLoading(false);
+        alert('Account created successfully');
         setTimeout(() => {
           navigate('/login');
-        }, 800)
+        }, 500)
         return res.json();
       } else if (res.status === 401) {
           return res.json();
@@ -56,6 +57,7 @@ export default function Signup() {
     .catch((err) => {
       console.log(err);
     })
+    e.target.reset();
   }
 
   return (
